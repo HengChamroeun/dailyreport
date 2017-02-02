@@ -1,0 +1,221 @@
+@import url(../../../fonts/KHMERMEF1.woff);
+@import url(../../../fonts/KHMERMEF1.ttf);
+@import url(../../../fonts/KHMERMEF2.woff);
+@import url(../../../fonts/KHMERMEF2.ttf);
+/* Space out content a bit */
+body {
+  /*padding-top: 20px;
+  padding-bottom: 20px;
+  */
+  font-family: 'KHMER MEF1';
+}
+.h1, .h2, .h3, h1, h2, h3 {
+/* margin-top: -15px; */
+/* margin-bottom: 50px; */
+margin-top:auto;
+margin-bottom:auto;
+padding-top:15px;
+font-family: KHMER MEF2;
+}
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  /*padding-bottom: 19px;*/
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top:0px;
+  line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 1px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.container{padding:0px;}
+.container .jumbotron {padding:0px;border-radius:0px;}
+.jumbotron .col-lg-1,
+.jumbotron  .col-lg-10,
+.jumbotron  .col-lg-11,
+.jumbotron  .col-lg-12,
+.jumbotron  .col-lg-2,
+.jumbotron  .col-lg-3,
+.jumbotron .col-lg-4,
+.jumbotron   .col-lg-5,
+.jumbotron   .col-lg-6,
+.jumbotron   .col-lg-7,
+.jumbotron   .col-lg-8,
+.jumbotron   .col-lg-9,
+.jumbotron   .col-md-1,
+.jumbotron   .col-md-10,
+.jumbotron   .col-md-11,
+.jumbotron   .col-md-12,
+.jumbotron   .col-md-2,
+.jumbotron   .col-md-3,
+.jumbotron   .col-md-4,
+.jumbotron   .col-md-5,
+.jumbotron   .col-md-6,
+.jumbotron   .col-md-7,
+.jumbotron   .col-md-8,
+.jumbotron   .col-md-9,
+.jumbotron   .col-sm-1,
+.jumbotron   .col-sm-10,
+.jumbotron   .col-sm-11,
+.jumbotron   .col-sm-12,
+.jumbotron   .col-sm-2,
+.jumbotron   .col-sm-3,
+.jumbotron   .col-sm-4,
+.jumbotron   .col-sm-5,
+.jumbotron   .col-sm-6,
+.jumbotron   .col-sm-7,
+.jumbotron   .col-sm-8,
+.jumbotron   .col-sm-9,
+.jumbotron   .col-xs-1,
+.jumbotron   .col-xs-10,
+.jumbotron  .col-xs-11,
+.jumbotron   .col-xs-12,
+.jumbotron   .col-xs-2,
+.jumbotron   .col-xs-3,
+.jumbotron   .col-xs-4,
+.jumbotron   .col-xs-5,
+.jumbotron   .col-xs-6,
+.jumbotron   .col-xs-7,
+.jumbotron   .col-xs-8,
+.jumbotron   .col-xs-9 {
+position: relative;
+min-height: 1px;
+/* padding-right: 15px; */
+/* padding-left: 15px; */
+padding:0px;
+}
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+  .container.admin{
+	max-width:90%;
+	background-color:#F2DEDE;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+a:hover {
+    background-color: #E2E2E2;
+} 
+.navbar {margin-bottom:0px;}
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+  font-family: 'KHMER MEF1';
+  padding-bottom: 10px;
+  background-color: #fff;
+}
+.jumbotron h2.title{
+  font-family: 'KHMER MEF2';
+}
+.jumbotron .btn {
+  padding: 7px 12px;
+  font-size: 21px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+   /* margin-bottom: 30px;*/
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+
+	/*padding:0px 15px;*/
+  }
+}
+
+/*==========================Custom Bootstrap Menu==========================*/
+#custom-bootstrap-menu{font-family:KHMER MEF1}
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(119, 119, 119, 1);
+}
+#custom-bootstrap-menu.navbar-default {
+    font-size: 15px;
+    background-color: rgba(248, 248, 248, 1);
+    border-width: 1px;
+    border-radius: 4px;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: #fff;
+    background-color: rgba(248, 248, 248, 0);
+	font-family:KHMER MEF1;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover
+{
+	background-color: #E2E2E2;
+}
+
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(51, 51, 51, 1);
+    background-color: rgba(248, 248, 248, 0);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(85, 85, 85, 1);
+    background-color: rgba(231, 231, 231, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #ddd;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #ddd;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #888;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #888;
+}
+
+.trevenues
+{
+	
+	font-family:KHMER MEF1,courier, arial;
+	font-size: 14px;
+	background-color: #F0AD52;
+}
+.clear{clear:both;padding:0px;margin:0px;}
+h2 {
+font-size: 20px !important;
+}

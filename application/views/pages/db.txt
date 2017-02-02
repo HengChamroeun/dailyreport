@@ -1,0 +1,30 @@
+-----token, status, 
+--tbl_users
+	-id
+	- username
+	- password
+
+- tbl_offices
+	- id
+	- branch_id
+	- office_code -PNH01,
+	- office_name -Airport, 
+	
+- tbl_branches
+	- id
+	- office_name
+	-
+
+	
+--tblDataEntries
+	- id
+	- office_id
+	- revenue
+	- date
+	- 
+	
+--tbl_quarterly_plans
+	-id
+	-office_id
+	-amount
+	-effect_date

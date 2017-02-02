@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+
+#RewriteEngine on
+#RewriteRule (.*) http://127.0.0.1:8068/awlaravel/public/acl/auth/login [R=301,L]
+RewriteEngine On
+RewriteBase /dailyreport/
+
+RewriteCond %{REQUEST_URI} ^system.*
+RewriteRule ^(.*)$ /index.php?/$1 [L]
+
+RewriteCond %{REQUEST_URI} ^application.*
+RewriteRule ^(.*)$ /index.php?/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?/$1 [L]
+
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    ErrorDocument 404 /index.php
+</IfModule>

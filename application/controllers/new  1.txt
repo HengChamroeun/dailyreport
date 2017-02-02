@@ -1,0 +1,8 @@
+$.ajax({
+		url:'home/getPrevRevenue2',
+		type:'POST',
+		data:{branch_code:$('#bran_code').val(),date:'<?php echo $DATE; ?>'},
+		success: function(data){
+		}
+		
+});

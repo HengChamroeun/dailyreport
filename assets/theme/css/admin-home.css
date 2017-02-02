@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* CSS Document */
+.bname{
+			text-align:left;
+			}
+		.reserved_input{
+			margin:0px;
+			padding:2px;
+		}
+		.reserved_has_input {padding:0px !important;}
+		tr td{background-color:#dff0d8;}
+		tr td.number{text-align:right;}
+		
+		.trheader td{
+			background-color: #337ab7;
+			border-color: #2e6da4;
+			color: #ededed;
+			font-family:'KHMER MEF2';
+		}
+		
+		h2{font-size:20px !important;}
+		#foot-note{
+			
+		}
+		#foot-note tr td{
+			background-color:#fff;
+			text-align: left;
+		}
+		.tr_branch, .tr_sum{
+			font-weight:bold;
+			}
+		.tr_branch .time{
+			font-size:12px;
+			}
+		.tr_sum{
+			font-size:15px;
+			}
+

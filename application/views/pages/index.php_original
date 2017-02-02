@@ -1,0 +1,229 @@
+    <div class="jumbotron">
+		<?php 
+			//$revenue_status = $this->m_revenues->getRevenueStatus($DATE);
+			//echo($revenue_status);
+			$attr=array('id'=>'frmRevenue','class'=>'form-horizontal','role'=>'form');
+			echo form_open(base_url('home/AddRevenue'),$attr);
+		?>
+			<?php 
+				$branch_code=$this->m_global->select_record(TBLUSERS,array('id'=>$USER_ID),'branch_code'); 
+				echo '<input type="hidden" id="bran_code" value="'.$branch_code.'">';
+			?>
+			<h2 class='title'><?php echo $this->m_customs->getBranch($branch_code); ?></h2>
+			<h3>ចំណូលបូកបន្តគិតត្រឹមថ្ងៃ <?php echo showDateKH($DATE); ?></h3>
+			<br/>
+			<br/>
+			<div style="margin-right:10%; margin-left:10%">
+			<?php
+				//echo $branch_code;
+				$ofs=$this->m_customs->getOffices($branch_code);
+				if($ofs != false){
+					?>
+						<div class='form-group'>
+						  <label class='control-label col-sm-4' for='pwd'>សរុបចំណូលបូកបន្ដបានបញ្ចូល  :</label>
+						  <div class='col-sm-8'>          
+							<input type='text' class='form-control' id='branch_revenue' placeholder='' disabled='disabled' data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true" style="text-align: right;">
+						  </div>
+						</div>
+					<?php
+				}else{
+					?>
+						<div class='form-group'>
+						  <label class='control-label col-sm-4' for='pwd'>ចំណូលបូកបន្តគិតត្រឹមថ្ងៃនេះ</label>
+						  <div class='col-sm-8'>          
+							<input type='text' class='form-control off_revenue' name='<?php echo INPUT_PREFIX.$branch_code; ?>' id='branch_revenue' placeholder='' data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true" style="text-align: right; ">
+						  </div>
+						</div>
+					<?php
+				}
+				$i=1;
+				$hidden='';
+				foreach($ofs as $of){
+					?>
+					<div class="form-group">
+					  <label class="control-label col-sm-4 off_name" for="revenue_<?php echo $i; ?>"><?php echo $of->name_print; ?> :</label>
+					  <div class="col-sm-8">          
+						<input type="text" align="center" id="revenue_<?php echo $i; ?>" class="form-control office_revenue off_revenue"  name="<?php echo INPUT_PREFIX.$of->code; ?>" placeholder="ចំណូលបូកបន្ត" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true" style="text-align: right;">
+					  </div>
+					</div>
+					
+					<?php
+				$hidden='';
+				$i++;
+				}
+			?>
+			<div class="form-group"> 
+			  <div class="col-sm-offset-2 col-sm-10">
+				<label for='verify'><input type="checkbox" name='verify' id='verify'> ខ្ញុំបានផ្ទៀងផ្ទាត់ឡើងវិញហើយ </label>
+			  </div>
+			</div>
+			<div class="form-group"> 
+			  <div class="col-sm-offset-2 col-sm-10">
+				<input type="submit" name='submit' class="btn btn-success" id='submit' disabled='disabled' value='បញ្ចូលចំណូល'>
+			  </div>
+			</div>
+			</div>
+			<input type="hidden" name='date' value="<?php echo $DATE; ?>">
+		  </form>
+    </div>
+	<script>
+		/*$('#submit').click(function(e) {
+           var url='<?php echo base_url('ajax/getRevenueStatus') ?>';
+			$.ajax({
+					type: "POST",
+					url: url,
+					dataType: 'text',
+					data: {date:'<?php echo($DATE); ?>'},
+					success: function(data){
+						e.preventDefault();
+						alert(data);
+					}
+				});
+        });*/
+		
+		var countOffice=$(".office_revenue").length;
+	//	var total=0;
+		
+		$(".office_revenue").on('change', function(){
+			var total = 0;
+			$(".office_revenue").each(function(index){
+				if(parseFloat($(this).val())){
+					total += parseFloat(removeMask($(this).val()));
+				}
+			});
+			//$("#branch_revenue").val(total.format(2,3,',','.'));
+			$("#branch_revenue").val(total);
+		});
+		/*
+		$(".office_revenue").each(function(index){
+			$(this).on('change',function(){
+				
+				$("#branch_revenue").val('');
+				total=total+parseFloat($(this).val());
+				
+					if(total!=0){
+					$("#branch_revenue").val(total.format(2,3,',','.'));
+					
+					}
+				//}
+			});
+			
+		});*/
+		$('.off_revenue').on('change', function(){
+			$(this).parent().parent().removeClass('has-error');
+			$("#verify").prop("checked", false);
+			$("#submit").attr('disabled','disabled');
+		});
+		$('.off_revenue').on('focus', function(){
+			$("#verify").prop("checked", false);
+			$("#submit").attr('disabled','disabled');
+		});
+				
+		$("#verify").on('change',function(){
+			if($(this).prop("checked")){
+				//var con=confirm('Total Amount is : \n'+$("#branch_revenue").val()+' រៀល');
+				var $message = $('<div>');
+				$message.append('<span>បូកចំណូលពីថ្ងៃទី  ៖ <?php echo showDateKH(date('Y-m').'-01').' ដល់ '.showDateKH($DATE);?></span><br/>');
+				
+				
+				$.ajax({
+					url:'home/getPrevRevenue2',
+					type:'POST',
+					data:{branch_code:$('#bran_code').val(),date:'<?php echo $DATE; ?>'},
+					success: function(data){
+						
+						//To do if no revenues for office
+						if(!$.isArray(data.revenues) || !data.revenues.length){
+							$('.off_revenue').each(function(){
+								var off_name = $(this).parent().parent().find('label').html();
+								var cur_amount = parseFloat(removeMask($(this).val()));
+								//$message.append('<span>'+off_name+' </span>'+cur_amount.format(2,3,',','.')+' រៀល <br/>');
+								$message.append('<tr><td>'+off_name+'</td><td>'+cur_amount.format(0,3,',','.')+' រៀល </td></tr>');
+								$message.append('---------------------------------------------------------------<br/>');
+								$message.append('<table style="border: 1px solid black;"><tr><th colspan="2"><span>ចំណូលក្នុងថ្ងៃ  :</span></th></tr>');
+								$message.append("<tr><td></td><td>"+cur_amount.format(0,3,',','.')+"រៀល </td></tr>");
+								$message.append("</table>");
+							});
+							$("#submit").removeAttr('disabled');
+						}else{
+							var total=0;
+							var str='';
+							var str2='';
+							var ii=1;
+							$.each(data.revenues, function(index, obj){
+								var off_name = $("input[name='dxInputList_"+obj.office_code+"']").parent().parent().find('label').html();
+								var cur_amount = removeMask($("input[name='dxInputList_"+obj.office_code+"']").val());
+								var pre_amount = parseFloat(obj.accumulative);
+								var dis_amount = parseFloat(cur_amount)-parseFloat(pre_amount); 
+								if(dis_amount < 0){
+									$("input[name='dxInputList_"+obj.office_code+"']").parent().parent().addClass('has-error');
+									if(ii==1){
+										$("input[name='dxInputList_"+obj.office_code+"']").focus();
+									}
+									ii++;
+									//break;
+								}
+								// //$message.append('<span>'+off_name+' </span>'+dis_amount.format(2,3,',','.')+' រៀល<br/>');
+								// //$message.append('<span>'+off_name+' </span>'+dis_amount.format(2,3,',','.')+' រៀល<br/>');
+								//str=str+'<span >'+off_name+' </span>'+parseFloat(cur_amount).format(2,3,',','.')+' រៀល<br/>';
+								str=str+'<tr><td>'+off_name+'</td><td>'+parseFloat(cur_amount).format(0,3,',','.')+' រៀល </td></tr>';
+								total=total+parseFloat(pre_amount);
+								// alert(obj.accumulative);
+								//str2=str2+'<span>'+off_name+' </span>'+dis_amount.format(2,3,',','.')+' រៀល <br/>';
+								str2=str2+'<tr><td>'+off_name+'</td><td>'+dis_amount.format(0,3,',','.')+' រៀល </td></tr>';
+								
+							});
+							//$message.append('<span ><?php echo $this->m_customs->getBranch($branch_code); ?> :</span>'+parseFloat(replaceAll(',','',$('#branch_revenue').val())).format(2,3,',','.')+' រៀល<br/>');
+							//$message.append(str);
+							//$message.append('<span ><?php echo $this->m_customs->getBranch($branch_code); ?> :</span>'+parseFloat(replaceAll(',','',$('#branch_revenue').val())).format(2,3,',','.')+' រៀល  <br/>');
+							$message.append('<tr><td><?php echo $this->m_customs->getBranch($branch_code); ?> :</td><td>'+parseFloat(replaceAll(',','',$('#branch_revenue').val())).format(0,3,',','.')+' រៀល  </td></tr>');
+							$message.append(str + '</table>');
+							
+							$message.append('---------------------------------------------------------------<br/>');
+							$message.append('<table style="border: 1px solid black;"><tr><th colspan="2"><span>ចំណូលក្នុងថ្ងៃ  :</span></th></tr>');
+							$message.append(str2 + "</table>");
+							
+							if(ii>1){
+								$("#submit").attr('disabled','disabled');
+								
+							}else{
+								$("#submit").removeAttr('disabled');
+							}
+							
+						}		
+						
+							
+							
+					//	});
+						
+						
+						$message.append('</div>');
+						// BootstrapDialog.show({
+							// title:'អ្ន​កបានបញ្ចូល', 
+							// type:BootstrapDialog.TYPE_INFO,
+							// message:$message,
+							// buttons:[{
+								// label:'OK',
+								// action:function(dialogItself){
+									// dialogItself.close();
+								// }
+							// }]
+						// });
+					},error:function(error){
+						// alert(error);
+					}
+				});
+				
+				
+				//var con = BootstrapDialog.confirm('Total Amount is : \n'+$("#branch_revenue").val()+' រៀល');
+				/*if(con==true){
+					//--------//
+				}else{
+					return false;
+				}*/
+				
+			}else{
+				$("#submit").attr('disabled','disabled');
+			}
+		})
+	</script>
